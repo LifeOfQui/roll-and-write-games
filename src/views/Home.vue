@@ -1,18 +1,43 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="nav">
+    <router-link to="/dices">Dices</router-link>
+    <router-link to="/qwixx">
+      <img
+        src="../assets/gameboxes/qwixx/qwixx.jpg"
+        alt="Qwixx"
+        style="width: 200px;"
+      />
+    </router-link>
+    <router-link to="/knister">
+      <img
+        src="../assets/gameboxes/knister.jpg"
+        alt="Knister"
+        style="width: 200px;"
+    /></router-link>
+    <router-link to="/wuerfel-bingo">
+      <img
+        src="../assets/gameboxes/wuerfel-bingo.jpg"
+        alt="Würfel-Bingo"
+        style="width: 200px;"
+      />
+    </router-link>
+    <GameBox />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import GameBox from "../components/GameBox.vue";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    GameBox
   }
 };
 </script>
+
+<style lang="less" scoped>
+.nav > a {
+  margin-right: 20px;
+}
+</style>
