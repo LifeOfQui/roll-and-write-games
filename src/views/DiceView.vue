@@ -1,8 +1,20 @@
 <template>
   <div
-    style="display: flex; justify-content: center; align-items: center;"
+    style="display: flex; justify-content: center; align-items: center; margin-top: 40px;"
     :style="{ flexDirection: layout }"
   >
+    <div
+      v-if="this.showCounter || this.maxRolls"
+      style="display: flex; justify-content: center; align-items: center"
+    >
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <label style="margin-right: 10px;">Counter:</label>
+        <div class="counter" style="margin-right: 20px; font-size: 32px;">
+          {{ counter }}
+        </div>
+      </div>
+      <button @click="resetCounter">Reset counter</button>
+    </div>
     <button class="rollDiceBtn" @click="rollDices">Roll dices</button>
 
     <div class="dice-container">
@@ -13,7 +25,9 @@
           :value="dice.value"
           :id="dice.id"
           :hold="dice.hold"
-          @holdDice="holdDice"
+          :disable="dice.disable"
+          :use-image="dice.useImage"
+          @clickOnDice="clickOnDice"
         ></Dice>
       </template>
     </div>
@@ -45,15 +59,22 @@ export default {
       }
     },
     layout: { type: String, default: "column" },
-    randomizeOrder: { type: Boolean, default: false }
+    randomizeOrder: { type: Boolean, default: false },
+    hold: { type: Boolean, default: false },
+    disable: { type: Boolean, default: false },
+    useImage: { type: Boolean, default: false },
+    showCounter: { type: Boolean, default: false },
+    maxRolls: { type: Number }
   },
   data() {
     return {
-      dices: []
+      dices: [],
+      counter: 0
     };
   },
   created() {
     this.createDices();
+    this.resetCounter();
     this.rollDices();
   },
   watch: {
@@ -71,7 +92,10 @@ export default {
         for (let i = 0; i < this.count; i++) {
           this.dices.push({
             color: this.colors[i],
-            id: i
+            id: i,
+            disable: false,
+            hold: false,
+            useImage: this.useImage
           });
           this.rollDices();
         }
@@ -85,24 +109,47 @@ export default {
           this.dices.push({
             color: "#ffffff",
             value: this.values[getRandomInt(this.values.length)],
-            id: this.dices.length + i
+            id: this.dices.length + i,
+            disable: false,
+            hold: false,
+            useImage: this.useImage
           });
         }
       }
     },
-    holdDice(idToHold) {
-      const indexToHold = this.dices.findIndex(x => x.id === idToHold);
-      this.dices[indexToHold].hold = !this.dices[indexToHold].hold;
+    clickOnDice(id) {
+      const index = this.dices.findIndex(x => x.id === id);
+
+      if (this.hold) {
+        this.dices[index].hold = !this.dices[index].hold;
+      } else if (this.disable) {
+        this.dices[index].disable = !this.dices[index].disable;
+      }
     },
     rollDices() {
-      this.dices = this.dices.map(dice => {
-        return {
-          ...dice,
-          value: dice.hold
-            ? dice.value
-            : this.values[getRandomInt(this.values.length)]
-        };
-      });
+      if (!(this.maxRolls !== undefined && this.maxRolls <= this.counter)) {
+        this.counter += 1;
+
+        this.dices = this.dices.map(dice => {
+          return {
+            ...dice,
+            value: dice.hold
+              ? dice.value
+              : this.values[getRandomInt(this.values.length)]
+          };
+        });
+      }
+    },
+    resetCounter() {
+      this.freeAllDices();
+      this.counter = 0;
+    },
+    freeAllDices() {
+      this.dices = this.dices.map(dice => ({
+        ...dice,
+        hold: false,
+        disable: false
+      }));
     }
   }
 };
