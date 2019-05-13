@@ -64,12 +64,13 @@
 
 <script>
 import { boards } from "../wuerfelland-boards";
+import { mapCharToInt } from "../utils";
 
 export default {
   name: "wuerfelland",
   data() {
     return {
-      gameId: 0,
+      gameId: "A",
       game: [],
       stars: [
         { color: "red", marked: false, star: true },
@@ -97,7 +98,7 @@ export default {
   methods: {
     createGame() {
       this.game = [];
-      this.game = boards[this.gameId];
+      this.game = boards[mapCharToInt(this.gameId)];
     },
     countColors() {
       this.game.forEach(row => {

@@ -21,3 +21,8 @@ export const getRandomHex = () =>
       return i > 5 ? null : a[Math.floor(Math.random() * 16)];
     })
     .join("");
+
+export const mapCharToInt = (char = "a") => {
+  const map = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  return map.indexOf(char.toLowerCase());
+};

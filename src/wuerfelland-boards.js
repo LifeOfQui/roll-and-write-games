@@ -4,8 +4,8 @@ export const boards = [
     [
       { color: "grey", marked: false },
       { color: "grey", marked: false, star: true },
-      { color: "star", marked: false },
-      { color: "star", marked: false },
+      { color: "red", marked: false },
+      { color: "red", marked: false },
       { color: "grey", marked: false },
       { color: "blue", marked: false },
       { color: "yellow", marked: false },
