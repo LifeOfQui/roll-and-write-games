@@ -2,11 +2,10 @@
   <div class="nav">
     <router-link to="/dices">Dices</router-link>
     <router-link to="/qwixx">
-      <img
-        src="../assets/gameboxes/qwixx/qwixx.jpg"
-        alt="Qwixx"
-        style="width: 200px;"
-      />
+      <GameBox src="qwixx/qwixx.jpg" alt="Qwixx" />
+    </router-link>
+    <router-link to="/wuerfelland">
+      <GameBox src="wuerfelland.jpg" alt="Würfelland" />
     </router-link>
     <router-link to="/knister">
       <img
@@ -21,7 +20,6 @@
         style="width: 200px;"
       />
     </router-link>
-    <GameBox />
   </div>
 </template>
 

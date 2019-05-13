@@ -27,19 +27,25 @@ export default new Router({
       path: "/qwixx/dices",
       name: "qwixxDices",
       component: () =>
-          import(/* webpackChunkName: "qwixx" */ "./components/Qwixx/Dices.vue")
+        import(/* webpackChunkName: "qwixx" */ "./components/Qwixx/Dices.vue")
     },
     {
       path: "/qwixx/basic",
       name: "qwixxBasic",
       component: () =>
-        import(/* webpackChunkName: "qwixx" */ "./components/Qwixx/Index.vue")
+        import(/* webpackChunkName: "Index" */ "./components/Qwixx/Index.vue")
     },
     {
       path: "/qwixx/gemixxt",
       name: "qwixxGemixxt",
       component: () =>
-          import(/* webpackChunkName: "qwixx" */ "./components/Qwixx/Gemixxt.vue")
+        import(/* webpackChunkName: "Gemixxt" */ "./components/Qwixx/Gemixxt.vue")
+    },
+    {
+      path: "/qwixx/connected",
+      name: "qwixxConnected",
+      component: () =>
+        import(/* webpackChunkName: "Connected" */ "./components/Qwixx/Connected.vue")
     },
     {
       path: "/knister",
@@ -52,6 +58,18 @@ export default new Router({
       name: "wuerfelbingo",
       component: () =>
         import(/* webpackChunkName: "wuerfelbingo" */ "./views/Wuerfelbingo.vue")
+    },
+    {
+      path: "/wuerfelland",
+      name: "wuerfelland",
+      component: () =>
+        import(/* webpackChunkName: "wuerfelland" */ "./views/Wuerfelland.vue")
+    },
+    {
+      path: "/wuerfelland-dices",
+      name: "wuerfelland-dices",
+      component: () =>
+        import(/* webpackChunkName: "wuerfelland-dices" */ "./components/WLDices.vue")
     }
   ]
 });
