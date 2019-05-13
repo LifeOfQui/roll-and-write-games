@@ -12,6 +12,12 @@ export default new Router({
       component: Home
     },
     {
+      path: "/kniffel-dices",
+      name: "kniffelDices",
+      component: () =>
+          import(/* webpackChunkName: "dices" */ "./components/KniffelDices.vue")
+    },
+    {
       path: "/dices",
       name: "dices",
       component: () =>
@@ -70,6 +76,18 @@ export default new Router({
       name: "wuerfelland-dices",
       component: () =>
         import(/* webpackChunkName: "wuerfelland-dices" */ "./components/WLDices.vue")
+    },
+    {
+      path: "/qwinto",
+      name: "qwinto",
+      component: () =>
+          import(/* webpackChunkName: "qwinto" */ "./views/Qwinto.vue")
+    },
+    {
+      path: "/qwinto/dices",
+      name: "qwintoDices",
+      component: () =>
+          import(/* webpackChunkName: "qwixx" */ "./components/Qwinto/Dices.vue")
     }
   ]
 });

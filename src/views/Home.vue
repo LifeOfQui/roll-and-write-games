@@ -1,5 +1,6 @@
 <template>
   <div class="nav">
+    <router-link to="/kniffel-dices">Kniffel Dices</router-link>
     <router-link to="/dices">Dices</router-link>
     <router-link to="/qwixx">
       <GameBox src="qwixx/qwixx.jpg" alt="Qwixx" />
