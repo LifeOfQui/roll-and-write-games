@@ -5,7 +5,9 @@
         <router-link to="/qwinto/dices">
           <div class="btn" @click="calculateScore">Qwinto DICES</div>
         </router-link>
-        <div class="btn" @click="calculateScore" style="margin-left: 40px">End game</div>
+        <div class="btn" @click="calculateScore" style="margin-left: 40px">
+          End game
+        </div>
       </div>
       <hr />
       <div class="board">
@@ -34,6 +36,7 @@
                   :key="`${rowIndex}-${fieldIndex}`"
                 >
                   <input
+                    @blur="validateField(rowIndex, fieldIndex)"
                     class="field__value"
                     style="text-align: center;"
                     :class="[field.color]"
@@ -156,9 +159,40 @@ export default {
   },
   methods: {
     addFail() {
-      if (this.failAttemps.length < 4) {
+      if (this.failAttemps.length < 3) {
         this.failAttemps.push("X");
+      } else if (this.failAttemps.length < 4) {
+        this.failAttemps.push("X");
+        alert("Spiel ist hiermit aus");
       }
+    },
+    validateField(ri, fi) {
+      if (
+        this.game[ri][fi].value >= 1 &&
+        this.game[ri][fi].value <= 18 &&
+        this.checkIfRowIsCorrect(ri)
+      ) {
+        return true;
+      } else {
+        this.game[ri][fi].value = null;
+        return false;
+      }
+    },
+    checkIfRowIsCorrect(ri) {
+      let buffer = 0;
+      let rowIsCorrect = true;
+
+      this.game[ri].forEach(field => {
+        if (field.value !== null) {
+          const value = parseInt(field.value);
+          if (buffer < value) {
+            buffer = value;
+          } else {
+            rowIsCorrect = false;
+          }
+        }
+      });
+      return rowIsCorrect;
     },
     calculateScore() {
       this.points = 0;
