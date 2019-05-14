@@ -26,3 +26,11 @@ export const mapCharToInt = (char = "a") => {
   const map = ["a", "b", "c", "d", "e", "f", "g", "h"];
   return map.indexOf(char.toLowerCase());
 };
+
+export const qwintoCalculateRows = num => {
+  if (num === 9) {
+    return 18;
+  } else {
+    return num;
+  }
+};

@@ -8,18 +8,14 @@
     <router-link to="/wuerfelland">
       <GameBox src="wuerfelland.jpg" alt="Würfelland" />
     </router-link>
+    <router-link to="/qwinto">
+      <GameBox src="qwinto.jpg" alt="Qwinto" />
+    </router-link>
     <router-link to="/knister">
-      <img
-        src="../assets/gameboxes/knister.jpg"
-        alt="Knister"
-        style="width: 200px;"
-    /></router-link>
+      <GameBox src="knister.jpg" alt="Knister" />
+    </router-link>
     <router-link to="/wuerfel-bingo">
-      <img
-        src="../assets/gameboxes/wuerfel-bingo.jpg"
-        alt="Würfel-Bingo"
-        style="width: 200px;"
-      />
+      <GameBox src="wuerfel-bingo.jpg" alt="Würfel-Bingo" />
     </router-link>
   </div>
 </template>
@@ -36,7 +32,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.nav > a {
-  margin-right: 20px;
+.nav {
+  display: flex;
+  padding-top: 50px;
+  flex-wrap: wrap;
+
+  & > a {
+    margin-right: 20px;
+  }
 }
 </style>
