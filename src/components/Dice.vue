@@ -79,6 +79,25 @@ export default {
           return "image six";
         }
       }
+
+      if (value === "star") {
+        return "shape star";
+      }
+      if (value === "circle") {
+        return "shape circle";
+      }
+      if (value === "dot") {
+        return "shape dot";
+      }
+      if (value === "multiply") {
+        return "shape multiply";
+      }
+      if (value === "square") {
+        return "shape square";
+      }
+      if (value === "triangle") {
+        return "shape triangle";
+      }
     }
   }
 };
@@ -119,13 +138,14 @@ export default {
   }
 
   &.image {
+    background-size: 100%;
+
     label {
       display: none;
     }
 
     &.one {
       background-image: url(../assets/dice/dice-1.svg);
-      background-size: 100%;
     }
 
     &.two {
@@ -158,6 +178,7 @@ export default {
     label {
       display: none;
     }
+
     &:after {
       position: absolute;
       content: "";
@@ -200,6 +221,38 @@ export default {
       &:after {
         background-color: orange;
       }
+    }
+  }
+
+  &.shape {
+    background-size: 100%;
+
+    label {
+      display: none;
+    }
+
+    &.star {
+      background-image: url(../assets/dice/star.svg);
+    }
+
+    &.circle {
+      background-image: url(../assets/dice/circle.svg);
+    }
+
+    &.dot {
+      background-image: url(../assets/dice/dot.svg);
+    }
+
+    &.multiply {
+      background-image: url(../assets/dice/multiply.svg);
+    }
+
+    &.square {
+      background-image: url(../assets/dice/square.svg);
+    }
+
+    &.triangle {
+      background-image: url(../assets/dice/triangle.svg);
     }
   }
 }

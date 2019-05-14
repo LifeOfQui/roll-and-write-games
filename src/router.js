@@ -15,7 +15,7 @@ export default new Router({
       path: "/kniffel-dices",
       name: "kniffelDices",
       component: () =>
-          import(/* webpackChunkName: "dices" */ "./components/KniffelDices.vue")
+        import(/* webpackChunkName: "dices" */ "./components/KniffelDices.vue")
     },
     {
       path: "/dices",
@@ -81,13 +81,25 @@ export default new Router({
       path: "/qwinto",
       name: "qwinto",
       component: () =>
-          import(/* webpackChunkName: "qwinto" */ "./views/Qwinto.vue")
+        import(/* webpackChunkName: "qwinto" */ "./views/Qwinto.vue")
     },
     {
       path: "/qwinto/dices",
       name: "qwintoDices",
       component: () =>
-          import(/* webpackChunkName: "qwixx" */ "./components/Qwinto/Dices.vue")
+        import(/* webpackChunkName: "qwintoDices" */ "./components/Qwinto/Dices.vue")
+    },
+    {
+      path: "/krisskross",
+      name: "krisskross",
+      component: () =>
+        import(/* webpackChunkName: "krisskross" */ "./views/KrissKross.vue")
+    },
+    {
+      path: "/krisskross/dices",
+      name: "krisskrossDices",
+      component: () =>
+        import(/* webpackChunkName: "krisskrossDices" */ "./components/KrissKross/Dices.vue")
     }
   ]
 });
