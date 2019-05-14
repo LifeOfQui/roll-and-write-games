@@ -3,243 +3,31 @@
     <DiceView
       :count="2"
       :values="['1', '2', '3', '4', '5', '6']"
-      :colors="['#ffffff', '#ffffff']"
+      :use-image="true"
       layout="row"
     ></DiceView>
     <div class="game">
       <div class="total">{{ total }}</div>
 
       <div class="game__grid">
-        <div class="game__slot slot--01 diagonal">
-          <input
-            @blur="calc"
-            ref="one"
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--02">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--03">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--04">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--05 diagonal">
-          <input
-            ref="five"
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--06">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--07 diagonal">
-          <input
-            ref="seven"
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--08">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--09 diagonal">
-          <input
-            ref="nine"
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--10">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--11">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--12">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--13 diagonal">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--14">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--15">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--16">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--17 diagonal">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--18">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--19 diagonal">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--20">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--21 diagonal">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--22">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--23">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--24">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
-        <div class="game__slot slot--25 diagonal">
-          <input
-            type="text"
-            maxlength="2"
-            min="1"
-            max="12"
-            class="game__input"
-          />
-        </div>
+        <template v-for="(row, rowIndex) in game">
+          <template v-for="(field, fieldIndex) in row">
+            <div
+              :class="['game__slot', { diagonal: field.diagonal }]"
+              :key="`${rowIndex}-${fieldIndex}`"
+            >
+              <input
+                v-model="field.value"
+                @blur="calc(rowIndex, fieldIndex)"
+                type="text"
+                maxlength="2"
+                min="1"
+                max="12"
+                class="game__input"
+              />
+            </div>
+          </template>
+        </template>
       </div>
     </div>
   </div>
@@ -247,10 +35,9 @@
 
 <script>
 import DiceView from "./DiceView";
-import { checkForPairs } from "../knister-checks";
 
 export default {
-  name: "Index",
+  name: "Knister",
   components: { DiceView },
   data() {
     return {
@@ -258,27 +45,67 @@ export default {
       rowsScore: [0, 0, 2, 0, 0],
       columnsScore: [1, 12, 1, 2, 2],
       diagonaleOne: [],
-      diagonalsScore: [0, 16]
+      diagonalsScore: [0, 16],
+      game: [
+        [
+          { value: null, diagonal: true },
+          { value: null },
+          { value: null },
+          { value: null },
+          { value: null, diagonal: true }
+        ],
+        [
+          { value: null },
+          { value: null, diagonal: true },
+          { value: null },
+          { value: null, diagonal: true },
+          { value: null }
+        ],
+        [
+          { value: null },
+          { value: null },
+          { value: null, diagonal: true },
+          { value: null },
+          { value: null }
+        ],
+        [
+          { value: null },
+          { value: null, diagonal: true },
+          { value: null },
+          { value: null, diagonal: true },
+          { value: null }
+        ],
+        [
+          { value: null, diagonal: true },
+          { value: null },
+          { value: null },
+          { value: null },
+          { value: null, diagonal: true }
+        ]
+      ]
     };
   },
-  mounted() {
-    this.diagonaleOne = [
-      this.$refs.one.value,
-      this.$refs.seven.value,
-      this.$refs.nine.value
-    ];
-    this.calculateScore();
-  },
   methods: {
-    calc() {
-      this.diagonaleOne = [
-        this.$refs.one.value,
-        this.$refs.seven.value,
-        this.$refs.nine.value
-      ];
-      console.log(this.diagonaleOne);
-      console.log(checkForPairs(this.diagonaleOne));
-      this.calculateScore();
+    calc(ri, fi) {
+      if (this.validateField(ri, fi)) {
+        this.diagonaleOne = [
+          this.game[0][0].value,
+          this.game[1][1].value,
+          this.game[2][2].value,
+          this.game[3][3].value,
+          this.game[4][4].value
+        ];
+        console.log(this.diagonaleOne);
+        this.calculateScore();
+      }
+    },
+    validateField(ri, fi) {
+      if (this.game[ri][fi].value >= 2 && this.game[ri][fi].value <= 12) {
+        return true;
+      } else {
+        this.game[ri][fi].value = null;
+        return false;
+      }
     },
     calculateScore() {
       // this.total =
