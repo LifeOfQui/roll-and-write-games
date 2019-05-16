@@ -27,6 +27,21 @@ export default {
     useImage: { type: Boolean, default: false },
     xl: { type: Boolean, default: false } // gibt eine grossere style-klasse
   },
+  data() {
+    return {
+      availableColors: ["red", "blue", "yellow", "green", "grey", "orange"],
+      availableShapes: [
+        "circle",
+        "dot",
+        "key",
+        "multiply",
+        "mumie",
+        "square",
+        "star",
+        "triangle"
+      ]
+    };
+  },
   computed: {
     style() {
       let style = {};
@@ -40,23 +55,12 @@ export default {
   },
   methods: {
     getImageOrColorForValue(value) {
-      if (value === "red") {
-        return "color red";
+      if (this.availableColors.indexOf(value) > -1) {
+        return `color ${value}`;
       }
-      if (value === "blue") {
-        return "color blue";
-      }
-      if (value === "yellow") {
-        return "color yellow";
-      }
-      if (value === "green") {
-        return "color green";
-      }
-      if (value === "grey") {
-        return "color grey";
-      }
-      if (value === "orange") {
-        return "color orange";
+
+      if (this.availableShapes.indexOf(value) > -1) {
+        return `shape ${value}`;
       }
 
       if (this.useImage && this.color === "#ffffff") {
@@ -79,25 +83,6 @@ export default {
           return "image six";
         }
       }
-
-      if (value === "star") {
-        return "shape star";
-      }
-      if (value === "circle") {
-        return "shape circle";
-      }
-      if (value === "dot") {
-        return "shape dot";
-      }
-      if (value === "multiply") {
-        return "shape multiply";
-      }
-      if (value === "square") {
-        return "shape square";
-      }
-      if (value === "triangle") {
-        return "shape triangle";
-      }
     }
   }
 };
@@ -116,7 +101,7 @@ export default {
   position: relative;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.72);
   user-select: none;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
   label {
     font-size: 32px;
@@ -124,13 +109,13 @@ export default {
   }
 
   &.hold {
-    /*box-shadow: none;*/
     opacity: 0.7;
     transform: scale(0.9);
   }
 
   &.disable {
     opacity: 0.4;
+    background-image: none !important;
 
     label {
       display: none;
@@ -225,14 +210,12 @@ export default {
   }
 
   &.shape {
-    background-size: 100%;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
 
     label {
       display: none;
-    }
-
-    &.star {
-      background-image: url(../assets/dice/star.svg);
     }
 
     &.circle {
@@ -243,12 +226,24 @@ export default {
       background-image: url(../assets/dice/dot.svg);
     }
 
+    &.key {
+      background-image: url(../assets/dice/key.svg);
+    }
+
     &.multiply {
       background-image: url(../assets/dice/multiply.svg);
     }
 
+    &.mumie {
+      background-image: url(../assets/dice/mumie.svg);
+    }
+
     &.square {
       background-image: url(../assets/dice/square.svg);
+    }
+
+    &.star {
+      background-image: url(../assets/dice/star.svg);
     }
 
     &.triangle {

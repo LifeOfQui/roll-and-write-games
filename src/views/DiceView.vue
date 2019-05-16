@@ -86,6 +86,9 @@ export default {
     }
   },
   methods: {
+    valuesAreDifferentPerDice() {
+      return Array.isArray(this.values[0]);
+    },
     createDices(val) {
       if (this.dices.length === 0 || val === "new") {
         this.dices = [];
@@ -106,9 +109,13 @@ export default {
       } else {
         const numToAdd = this.count - this.dices.length;
         for (let i = 0; i < numToAdd; i++) {
+          const randomValue = this.valuesAreDifferentPerDice()
+            ? this.values[i][getRandomInt(this.values[i].length)]
+            : this.values[getRandomInt(this.values.length)];
+
           this.dices.push({
             color: "#ffffff",
-            value: this.values[getRandomInt(this.values.length)],
+            value: randomValue,
             id: this.dices.length + i,
             disable: false,
             hold: false,
@@ -130,12 +137,14 @@ export default {
       if (!(this.maxRolls !== undefined && this.maxRolls <= this.counter)) {
         this.counter += 1;
 
-        this.dices = this.dices.map(dice => {
+        this.dices = this.dices.map((dice, i) => {
+          const randomValue = this.valuesAreDifferentPerDice()
+            ? this.values[i][getRandomInt(this.values[i].length)]
+            : this.values[getRandomInt(this.values.length)];
+
           return {
             ...dice,
-            value: dice.hold
-              ? dice.value
-              : this.values[getRandomInt(this.values.length)]
+            value: dice.hold ? dice.value : randomValue
           };
         });
       }

@@ -14,18 +14,23 @@
       <div v-for="index in parseInt(colorsCount)" :key="index">
         <input v-model="colors[index - 1].count" />
         <input v-model="colors[index - 1].hex" />
+        <input v-model="colors[index - 1].values" />
       </div>
       <div>
         <input type="checkbox" v-model="hold" id="hold" />
         <label for="hold">Hold: {{ hold }}</label>
       </div>
-      <!-- TODO: Values auswählen 1-6 oder Mumie oder Stern etc...-->
-      <input v-model="diceValues" />
+      <div>
+        <input type="checkbox" v-model="disable" id="disable" />
+        <label for="disable">Disable: {{ disable }}</label>
+      </div>
     </div>
     <DiceView
       :values="diceValues"
       :count="diceCount"
       :colors="diceColors"
+      :hold="hold"
+      :disable="disable"
     ></DiceView>
   </div>
 </template>
@@ -42,9 +47,10 @@ export default {
       dices: [],
       diceCount: 0,
       colorsCount: 3,
-      diceValues: ["1", "2", "3", "4", "5", "6"],
+      diceValues: "1, 2, 3, 4, 5, 6",
       diceColors: [],
-      hold: true,
+      hold: false,
+      disable: false,
       colors: []
     };
   },
@@ -52,9 +58,6 @@ export default {
     this.createDices();
   },
   watch: {
-    diceValues: function() {
-      this.diceValues = this.diceValues.split(",");
-    },
     colorsCount: function() {
       this.createDices();
     },
@@ -62,16 +65,29 @@ export default {
       handler: function() {
         let count = 0;
         let colorArray = [];
+        let valuesArray = [];
 
         for (let i = 0; i < this.colors.length; i++) {
           count += parseInt(this.colors[i].count);
+
           for (let j = 0; j < this.colors[i].count; j++) {
             colorArray.push(this.colors[i].hex);
+
+            if (Array.isArray(this.colors[i].values)) {
+              valuesArray.push(this.colors[i].values);
+            } else {
+              let values = this.colors[i].values.split(",");
+              values = values
+                .filter(value => value !== "")
+                .map(value => value.trim());
+              valuesArray.push(values);
+            }
           }
         }
 
         this.diceCount = count;
         this.diceColors = colorArray;
+        this.diceValues = valuesArray;
       },
       deep: true
     }
@@ -83,7 +99,8 @@ export default {
       for (let i = 0; i < parseInt(this.colorsCount); i++) {
         this.colors.push({
           hex: getRandomHex(),
-          count: i + 1
+          count: i + 1,
+          values: ["1", "2", "3", "4", "5", "6"]
         });
         this.diceColors.push(this.colors[i].hex);
       }
