@@ -44,12 +44,12 @@ export default {
   props: {
     count: {
       type: Number,
-      default: 2
+      required: true
     },
     colors: {
       type: Array,
       default: function() {
-        return ["#ffffff", "#ffffff"];
+        return [];
       }
     },
     values: {
@@ -58,13 +58,13 @@ export default {
         return ["1", "2", "3", "4", "5", "6"];
       }
     },
-    layout: { type: String, default: "column" },
-    randomizeOrder: { type: Boolean, default: false },
     hold: { type: Boolean, default: false },
     disable: { type: Boolean, default: false },
-    useImage: { type: Boolean, default: false },
     showCounter: { type: Boolean, default: false },
-    maxRolls: { type: Number }
+    maxRolls: { type: Number },
+    useImage: { type: Boolean, default: false },
+    layout: { type: String, default: "column" },
+    randomizeOrder: { type: Boolean, default: false }
   },
   data() {
     return {

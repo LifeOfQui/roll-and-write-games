@@ -3,8 +3,8 @@
     class="dice"
     :class="[
       getImageOrColorForValue(value),
-      this.disable ? 'disable' : '',
-      this.hold ? 'hold' : ''
+      { disable: this.disable },
+      { hold: this.hold }
     ]"
     :style="[style, { backgroundColor: color }]"
     @click="$emit('clickOnDice', id)"
@@ -19,10 +19,10 @@ import { colourIsLight } from "../utils";
 export default {
   name: "Dice",
   props: {
-    id: Number,
+    id: { type: Number, required: true },
+    value: { type: String, required: true },
     color: { type: String, default: "#ffffff" },
-    value: { type: String },
-    hold: { type: Boolean },
+    hold: { type: Boolean, default: false },
     disable: { type: Boolean, default: false },
     useImage: { type: Boolean, default: false },
     xl: { type: Boolean, default: false } // gibt eine grossere style-klasse
@@ -34,12 +34,12 @@ export default {
         "circle",
         "dot",
         "key",
-        "multiply",
         "mumie",
         "square",
         "star",
         "triangle"
-      ]
+      ],
+      multiplyColors: ["blue", "green", "orange", "pink", "yellow"]
     };
   },
   computed: {
@@ -55,6 +55,10 @@ export default {
   },
   methods: {
     getImageOrColorForValue(value) {
+      if (value.includes("multiply")) {
+        return `shape ${value}`;
+      }
+
       if (this.availableColors.indexOf(value) > -1) {
         return `color ${value}`;
       }
@@ -232,6 +236,26 @@ export default {
 
     &.multiply {
       background-image: url(../assets/dice/multiply.svg);
+
+      &.blue {
+        background-image: url(../assets/dice/multiply-colored/multiply-blue.svg);
+      }
+
+      &.green {
+        background-image: url(../assets/dice/multiply-colored/multiply-green.svg);
+      }
+
+      &.orange {
+        background-image: url(../assets/dice/multiply-colored/multiply-orange.svg);
+      }
+
+      &.pink {
+        background-image: url(../assets/dice/multiply-colored/multiply-pink.svg);
+      }
+
+      &.yellow {
+        background-image: url(../assets/dice/multiply-colored/multiply-yellow.svg);
+      }
     }
 
     &.mumie {
