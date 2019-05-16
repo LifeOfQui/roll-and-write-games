@@ -100,6 +100,18 @@ export default new Router({
       name: "krisskrossDices",
       component: () =>
         import(/* webpackChunkName: "krisskrossDices" */ "./components/KrissKross/Dices.vue")
+    },
+    {
+      path: "/nochmal",
+      name: "nochmal",
+      component: () =>
+        import(/* webpackChunkName: "nochmal" */ "./views/Nochmal.vue")
+    },
+    {
+      path: "/nochmal/dices",
+      name: "nochmalDices",
+      component: () =>
+        import(/* webpackChunkName: "nochmalDices" */ "./components/Nochmal/Dices.vue")
     }
   ]
 });
