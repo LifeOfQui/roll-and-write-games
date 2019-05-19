@@ -38,8 +38,9 @@
 
 <script>
 import DiceView from "../../views/DiceView";
+
 export default {
-  name: "Index",
+  name: "NochmalDices",
   components: { DiceView }
 };
 </script>

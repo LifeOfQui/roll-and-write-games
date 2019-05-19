@@ -1,5 +1,9 @@
 <template>
   <div>
+    <button @click="dicesOpen = !dicesOpen">Toggle Dices</button>
+    <div v-if="dicesOpen">
+      <nochmal-dices></nochmal-dices>
+    </div>
     <div style="margin: 20px 0;">
       <div style="display: flex; justify-content: center; align-items: center;">
         <div class="btn" @click="calculateScore" style="margin-left: 40px">
@@ -64,16 +68,38 @@
             </template>
           </div>
         </div>
+        <!-- RECHTS -->
+        <div class="colorPoints">
+          <template v-for="(row, rowIndex) in colorPoints">
+            <div class="row" style="display: flex;" :key="rowIndex">
+              <template v-for="(color, colorIndex) in row">
+                <div
+                  @click="checkColorPoints(rowIndex, colorIndex)"
+                  :class="['field', color.color, { marked: color.marked }]"
+                  :key="`${colorIndex}-${colorIndex}`"
+                >
+                  <div class="field__value">
+                    {{ color.value }}
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import NochmalDices from "../components/Nochmal/Dices";
+
 export default {
   name: "Nochmal",
+  components: { NochmalDices },
   data() {
     return {
+      dicesOpen: true,
       chars: [
         "A",
         "B",
@@ -125,6 +151,28 @@ export default {
           { value: 2, marked: false },
           { value: 2, marked: false },
           { value: 3, marked: false }
+        ]
+      ],
+      colorPoints: [
+        [
+          { value: 5, marked: false, color: "green" },
+          { value: 3, marked: false, color: "green" }
+        ],
+        [
+          { value: 5, marked: false, color: "yellow" },
+          { value: 3, marked: false, color: "yellow" }
+        ],
+        [
+          { value: 5, marked: false, color: "blue" },
+          { value: 3, marked: false, color: "blue" }
+        ],
+        [
+          { value: 5, marked: false, color: "pink" },
+          { value: 3, marked: false, color: "pink" }
+        ],
+        [
+          { value: 5, marked: false, color: "orange" },
+          { value: 3, marked: false, color: "orange" }
         ]
       ],
       game: [
@@ -264,6 +312,9 @@ export default {
         alert("Spiel ist hiermit aus");
       }
     },
+    checkColorPoints(ri, fi) {
+      this.colorPoints[ri][fi].marked = !this.colorPoints[ri][fi].marked;
+    },
     checkRows(ri, fi) {
       this.rowPoints[ri][fi].marked = !this.rowPoints[ri][fi].marked;
     },
@@ -315,6 +366,7 @@ export default {
   border-radius: 0;
   box-shadow: 2px 2px 4px gray;
   width: 650px;
+  display: flex;
 }
 
 .game {
@@ -337,8 +389,8 @@ export default {
     border: 1px solid black;
 
     .field__value {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       font-size: 24px;
       cursor: pointer;
       border-radius: 50%;
@@ -434,6 +486,82 @@ export default {
       .field__value {
         background-color: transparent;
         font-weight: bold;
+      }
+    }
+  }
+}
+
+.colorPoints {
+  background-color: #000;
+  padding: 10px;
+
+  .field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    padding: 2px;
+    border: 1px solid black;
+
+    .field__value {
+      width: 30px;
+      height: 30px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      text-shadow: 1px 1px rgba(0, 0, 0, 0.7);
+    }
+
+    &.marked {
+      .field__value {
+        background-image: url(../assets/images/multiply.svg);
+        background-size: 80%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &.green {
+      background-color: #97bf1e;
+
+      .field__value {
+        color: #b5d663;
+      }
+    }
+
+    &.blue {
+      background-color: #56c6ec;
+
+      .field__value {
+        color: #8dd6f7;
+      }
+    }
+
+    &.orange {
+      background-color: #f18000;
+
+      .field__value {
+        color: #f6a54a;
+      }
+    }
+
+    &.yellow {
+      background-color: #ffc700;
+
+      .field__value {
+        color: #ffde49;
+      }
+    }
+
+    &.pink {
+      background-color: #e00142;
+
+      .field__value {
+        color: #f04a7c;
       }
     }
   }

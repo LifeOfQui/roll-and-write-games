@@ -7,7 +7,7 @@
       layout="row"
     ></DiceView>
     <div class="game">
-      <div class="total">{{ total }}</div>
+      <div class="total" v-if="total > -100">{{ total }}</div>
 
       <div class="game__grid">
         <template v-for="(row, rowIndex) in game">
@@ -41,11 +41,10 @@ export default {
   components: { DiceView },
   data() {
     return {
-      total: 0,
-      rowsScore: [0, 0, 2, 0, 0],
-      columnsScore: [1, 12, 1, 2, 2],
-      diagonaleOne: [],
-      diagonalsScore: [0, 16],
+      total: -100,
+      rowsScore: [],
+      columnsScore: [],
+      diagonalsScore: [],
       game: [
         [
           { value: null, diagonal: true },
@@ -88,14 +87,17 @@ export default {
   methods: {
     calc(ri, fi) {
       if (this.validateField(ri, fi)) {
-        this.diagonaleOne = [
+        this.diagonalsScore = [];
+        this.rowsScore = [];
+        this.columnsScore = [];
+        const diagonaleOne = [
           this.game[0][0].value,
           this.game[1][1].value,
           this.game[2][2].value,
           this.game[3][3].value,
           this.game[4][4].value
         ];
-        console.log(this.diagonaleOne);
+        // this.diagonalsScore.push(calculatePoints(diagonaleOne));
         this.calculateScore();
       }
     },
@@ -108,6 +110,7 @@ export default {
       }
     },
     calculateScore() {
+      this.total = 0;
       // this.total =
       //   this.total +
       //   this.rowsScore.reduce((acc, currentValue) => {

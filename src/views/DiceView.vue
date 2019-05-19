@@ -15,7 +15,7 @@
       </div>
       <button @click="resetCounter">Reset counter</button>
     </div>
-    <button class="rollDiceBtn" @click="rollDices">Roll dices</button>
+    <button class="rollDiceBtn" @click="rollDices()">Roll dices</button>
 
     <div class="dice-container">
       <template v-for="(dice, index) in dices">
@@ -35,8 +35,10 @@
 </template>
 
 <script>
+import { Howl, Howler } from "howler";
 import Dice from "../components/Dice";
 import { getRandomInt } from "../utils";
+import shakeRollDice from "../assets/sounds/shake-roll-dice.mp3";
 
 export default {
   name: "DiceView",
@@ -135,6 +137,12 @@ export default {
     },
     rollDices() {
       if (!(this.maxRolls !== undefined && this.maxRolls <= this.counter)) {
+        const sound = new Howl({
+          src: [shakeRollDice]
+        });
+
+        sound.play();
+
         this.counter += 1;
 
         this.dices = this.dices.map((dice, i) => {

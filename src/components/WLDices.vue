@@ -11,6 +11,7 @@
         '#ffffff',
         '#ffffff'
       ]"
+      :hold="true"
     ></DiceView>
   </div>
 </template>

@@ -27,9 +27,7 @@
                 ]"
                 :key="`${rowIndex}-${fieldIndex}`"
               >
-                <div class="field__value" :class="[field.color]">
-                  {{ field.value }}
-                </div>
+                <div class="field__value" :class="[field.color]"></div>
               </div>
             </template>
           </div>
@@ -110,7 +108,7 @@ export default {
       });
     },
     checkField(ri, fi) {
-      if (!this.game[ri][fi].marked && !(this.game[ri][fi].color === "black")) {
+      if (!(this.game[ri][fi].color === "black")) {
         this.game[ri][fi].marked = !this.game[ri][fi].marked;
         this.oneColorMarked = this.checkColors();
 

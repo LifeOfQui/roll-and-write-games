@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="btn__row">
-      <div class="btn">New game</div>
+      <div style="display: flex;">
+        <div class="btn" @click="createGame">New game</div>
+        <input
+          v-model="gameId"
+          style="margin-left: 10px; width: 40px; text-align: center;"
+        />
+      </div>
       <div class="btn" @click="calculateScore">End game</div>
     </div>
     <div class="game">
@@ -64,7 +70,6 @@
 </template>
 
 <script>
-import { getRandomInt } from "../../utils";
 import qwixxGemixxtGames from "./games";
 import { calculateRows } from "./utils";
 
@@ -72,6 +77,7 @@ export default {
   name: "Gemixxt",
   data() {
     return {
+      gameId: 0,
       game: [],
       failAttemps: [],
       rowScore: [],
@@ -79,10 +85,18 @@ export default {
     };
   },
   created() {
-    const gameId = getRandomInt(qwixxGemixxtGames.length);
-    this.game = qwixxGemixxtGames[gameId];
+    this.game = qwixxGemixxtGames[this.gameId];
   },
   methods: {
+    createGame() {
+      this.game = [];
+      this.failAttemps = [];
+      this.rowScore = [];
+      this.points = -100;
+      this.$nextTick(() => {
+        this.game = qwixxGemixxtGames[this.gameId];
+      });
+    },
     addFail() {
       if (this.failAttemps.length < 4) {
         this.failAttemps.push("X");
@@ -213,6 +227,7 @@ export default {
       border-radius: 6px;
       font-size: 24px;
       cursor: pointer;
+      user-select: none;
 
       &.red {
         color: #bc363f;
@@ -271,6 +286,7 @@ export default {
         background-size: 32px;
         background-position: center;
         background-repeat: no-repeat;
+        user-select: none;
 
         &:after {
           display: none;
@@ -420,5 +436,6 @@ export default {
   padding: 10px;
   border: 1px solid #efe;
   cursor: pointer;
+  user-select: none;
 }
 </style>

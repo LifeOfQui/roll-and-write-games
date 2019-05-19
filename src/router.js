@@ -72,8 +72,8 @@ export default new Router({
         import(/* webpackChunkName: "wuerfelland" */ "./views/Wuerfelland.vue")
     },
     {
-      path: "/wuerfelland-dices",
-      name: "wuerfelland-dices",
+      path: "/wuerfelland/dices",
+      name: "wuerfellandDices",
       component: () =>
         import(/* webpackChunkName: "wuerfelland-dices" */ "./components/WLDices.vue")
     },
