@@ -127,9 +127,9 @@ export default {
       let isAllowed = true;
       let count = 0;
 
-      if (this.game[ri].values[fi].marked) {
-        isAllowed = false;
-      }
+      // if (this.game[ri].values[fi].marked) {
+      //   isAllowed = false;
+      // }
 
       // if lock
       if (this.game[ri].values.length - 1 === fi) {
@@ -156,7 +156,7 @@ export default {
       } else {
         this.game[ri].values.forEach((field, index) => {
           if (field.marked) {
-            if (index >= fi) {
+            if (index > fi) {
               isAllowed = false;
               return false;
             }
