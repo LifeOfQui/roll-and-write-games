@@ -36,7 +36,7 @@
 
       <div class="info">
         <div class="text">1x</div>
-        <div :class="['colorful', oneColorMarked ? 'marked' : '']"></div>
+        <div @click="checkOneColor()" :class="['colorful', oneColorMarked ? 'marked' : '']"></div>
         <div class="separator"></div>
         <div class="text">9x</div>
         <template v-for="(field, fieldIndex) in stars">
@@ -110,25 +110,29 @@ export default {
     checkField(ri, fi) {
       if (!(this.game[ri][fi].color === "black")) {
         this.game[ri][fi].marked = !this.game[ri][fi].marked;
-        this.oneColorMarked = this.checkColors();
+        // this.oneColorMarked = this.checkColors();
 
-        if (this.game[ri][fi].star) {
-          this.checkStars(this.game[ri][fi].color);
-          this.nineStars = this.checkIfNineStars();
-        }
-      }
-      if (this.oneColorMarked && this.nineStars) {
-        alert("Du hast gewonnen");
+        // if (this.game[ri][fi].star) {
+        //   this.checkStars(this.game[ri][fi].color);
+        //   this.nineStars = this.checkIfNineStars();
+        // }
       }
     },
-    checkStars(color) {
-      let marked = false;
-      this.stars.forEach(star => {
-        if (star.color === color && !star.marked && !marked) {
-          star.marked = !star.marked;
-          marked = true;
-        }
-      });
+    checkOneColor() {
+      this.oneColorMarked = !this.oneColorMarked;
+      this.checkForWin();
+    },
+    checkStars(fieldIndex) {
+      // let marked = false;
+      // this.stars.forEach(star => {
+      //   if (star.color === color && !star.marked && !marked) {
+      //     star.marked = !star.marked;
+      //     marked = true;
+      //   }
+      // });
+      this.stars[fieldIndex].marked = !this.stars[fieldIndex].marked;
+      this.nineStars = this.checkIfNineStars();
+      this.checkForWin();
     },
     checkIfNineStars() {
       if (!this.nineStars) {
@@ -140,6 +144,11 @@ export default {
         return stars >= 9;
       } else {
         return true;
+      }
+    },
+    checkForWin() {
+      if (this.oneColorMarked && this.nineStars) {
+        alert("Du hast gewonnen");
       }
     },
     checkColors() {
